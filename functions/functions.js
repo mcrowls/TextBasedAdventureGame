@@ -24,12 +24,14 @@ const checkTooGuilty = () => {
 
 const interactionAfterCellar = (path, fight, combatLog) => {
     if (fight === 'stand and fight') {
-        console.log("You bravely stand your ground against the", combatLog[path]['enemy'], "and with your trusty", player.weapon, "in hand, you manage to beat them down, losing", combatLog[path]['fight'], "health in the process.")
-        healthDecrease(combatLog[path][fight])
+        console.log("You bravely stand your ground against the", combatLog[path]['enemy'], "and with your trusty", player.weapon, "in hand, you manage to beat them down, losing", combatLog[path]['stand and fight']['health'], "health in the process.")
+        healthDecrease(combatLog[path][fight]['health'])
+        guiltIncrease(combatLog[path][fight]['guilt'])
     }
     else if (fight === 'run away') {
-        console.log("Like a miserable coward, you slink shamefully past the", combatLog[path]['enemy'], "losing no health, but suffering", combatLog[path]['run'], "guilt. I hope you're proud of yourself.")
-        guiltIncrease(combatLog[path]['run'])
+        console.log("Like a miserable coward, you slink shamefully past the", combatLog[path]['enemy'], "losing no health, but suffering", combatLog[path]['run away']['guilt'], "guilt. I hope you're proud of yourself.")
+        healthDecrease(combatLog[path][fight]['health'])
+        guiltIncrease(combatLog[path][fight]['guilt'])
     }
 }
 
@@ -37,5 +39,6 @@ module.exports = {
     healthDecrease,
     guiltIncrease,
     checkStillAlive, 
+    checkTooGuilty,
     interactionAfterCellar
 }
