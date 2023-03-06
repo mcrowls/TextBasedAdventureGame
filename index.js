@@ -1,5 +1,5 @@
 const {name, selectWeapons, digOrKeys, cellarChoice, combat, finalChoice} = require('./functions/inq');
-const { healthDecrease, guiltIncrease, checkStillAlive, interactionAfterCellar} = require('./functions/functions');
+const { healthDecrease, guiltIncrease, checkStillAlive, interactionAfterCellar, checkTooGuilty} = require('./functions/functions');
 let {player, weapons, escapeCellMethods, weaponWithGuard, cellarOptions, fightOptions, combatLog, directions} = require('./stored/userItems');
 
 const start = async () => {
@@ -30,9 +30,10 @@ const escapeCell = async () => {
     else {
         console.log("Bold move! You have chosen to knock out the guard")
         guiltIncrease(1)
-        healthDecrease(weaponWithGuard[player.weapon])
-        
+        healthDecrease(weaponWithGuard[player.weapon]) 
     }
+    checkStillAlive()
+    checkTooGuilty()
     cellar()
 }
 
@@ -43,6 +44,8 @@ const cellar = async () => {
     console.log("You run through the", path, "and you come across a", combatLog[path]['enemy'])
     let fight = await combat(fightOptions)
     interactionAfterCellar(path, fight, combatLog)
+    checkStillAlive()
+    checkTooGuilty()
     freedom(path)
 }
 
