@@ -17,7 +17,7 @@ const checkStillAlive = () => {
 
 const checkTooGuilty = () => {
     if (player.guilt === 10){
-        console.log('Your conscience has finally caught up with you. You have handed yourself in to the guards. A lifetime of gruel and self-reflection await.')
+        console.log('Your conscience has finally caught up with you. You have handed yourself in to the guards. A lifetime of gruel and self-reflection awaits.')
     }
 }
 
