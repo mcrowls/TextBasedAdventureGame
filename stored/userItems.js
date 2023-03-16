@@ -1,8 +1,21 @@
+
+function healthSetter(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function guiltSetter(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min)
+    }
+    
+const randomHealth = healthSetter(3, 10)
+    
+const randomGuilt = guiltSetter(1, 7)
+    
 let player = {
-    name: "",
+     name: "",
     weapon: "",
-    health: 10,
-    guilt: 0
+    health: randomHealth,
+    guilt: randomGuilt
 }
 
 const weapons = ["shoelace", "soap in a sock", "morning breath", "beer bottle"]

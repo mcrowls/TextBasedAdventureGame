@@ -7,6 +7,7 @@ const start = async () => {
     console.log("In your daze, you seem to have forgotten what your name is...")
     player.name = await name()
     console.log("Hello", player.name, ", quite the situation you find yourself in!")
+    console.log("Your starting health is", player.health ,"and your starting guilt is", player.guilt ,"If your health gets to 0 or your guilt gets to 10, it will be game over man!")
     userSelectWeapon()
 }
 

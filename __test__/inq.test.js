@@ -34,21 +34,21 @@ describe('weapon choice tests', () => {
         await expect(selectWeapons(["shoelace", "soap in a sock", "morning breath", "beer bottle"])).resolves.toEqual('shoelace')
     })
 
-    test('weapon choice user selects shoelace', async() => {
+    test('weapon choice user selects soap in a sock', async() => {
         expect.assertions(1)
         inquirer.prompt = jest.fn().mockResolvedValue({ weaponChoice: 'soap in a sock' })
 
         await expect(selectWeapons(["shoelace", "soap in a sock", "morning breath", "beer bottle"])).resolves.toEqual('soap in a sock')
     })
 
-    test('weapon choice user selects shoelace', async() => {
+    test('weapon choice user selects morning breath', async() => {
         expect.assertions(1)
         inquirer.prompt = jest.fn().mockResolvedValue({ weaponChoice: 'morning breath' })
 
         await expect(selectWeapons(["shoelace", "soap in a sock", "morning breath", "beer bottle"])).resolves.toEqual('morning breath')
     })
 
-    test('weapon choice user selects shoelace', async() => {
+    test('weapon choice user selects beer bottle', async() => {
         expect.assertions(1)
         inquirer.prompt = jest.fn().mockResolvedValue({ weaponChoice: 'beer bottle' })
 
