@@ -1,17 +1,17 @@
 const inquirer = require('inquirer')
 
+
+
 const name = async () => {
-    const {userInput} = await inquirer.prompt({
+    const { userInput } = await inquirer.prompt({
         type: 'input',
         name: 'userInput',
-        message: 'What is your name?'
+        message: 'what is your name?'
     })
-    if (!userInput.match(/^[a-zA-Z]+/g)){
-        return 'use letters only'
+    if (!userInput.match(/^[a-zA-Z]+/g)) {
+        return 'invalid'
     }
-    else {
-        return userInput
-    }
+    return userInput
 }
 
 const selectWeapons = async (weapons) => {
@@ -23,7 +23,6 @@ const selectWeapons = async (weapons) => {
     })
     return weaponChoice
 }
-
 
 const digOrKeys = async (escapeCellMethods) => {
     const { escapeCellMethod } = await inquirer.prompt({
@@ -64,7 +63,6 @@ const finalChoice = async () => {
     if (!NSEW.match(/N|S|E|W/i)){
         console.log('choose N, E, S, W')
         finalChoice()
-
     }
     else {
         return NSEW.toUpperCase()

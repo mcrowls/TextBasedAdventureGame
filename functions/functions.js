@@ -1,4 +1,4 @@
-let {player, fightOptions} = require('../stored/userItems')
+let {player} = require('../stored/userItems')
 
 
 const healthDecrease = (number) => {
@@ -9,16 +9,14 @@ const guiltIncrease = (number) => {
     return player.guilt = player.guilt + number
 }
 
-const checkStillAlive = () => {
-    if (player.health === 0){
-        console.log('You have escaped in spirit, if not in body. You are dead.')
-    } 
+const playerDead = () => {
+    console.log('You have escaped in spirit, if not in body. You are dead.')
+    gameOver()
 }
 
-const checkTooGuilty = () => {
-    if (player.guilt === 10){
-        console.log('Your conscience has finally caught up with you. You have handed yourself in to the guards. A lifetime of gruel and self-reflection awaits.')
-    }
+const playerTooGuilty = () => {
+    console.log('Your conscience has finally caught up with you. You have handed yourself in to the guards. A lifetime of gruel and self-reflection awaits.')
+    gameOver()
 }
 
 
@@ -35,10 +33,14 @@ const interactionAfterCellar = (path, fight, combatLog) => {
     }
 }
 
+const gameOver = () => {
+    console.log("GAME OVER!")
+}
+
 module.exports = {
     healthDecrease,
     guiltIncrease,
-    checkStillAlive, 
-    checkTooGuilty,
-    interactionAfterCellar
+    playerDead, 
+    playerTooGuilty,
+    interactionAfterCellar,
 }
