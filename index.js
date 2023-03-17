@@ -74,7 +74,20 @@ const cellar = async () => {
 
 const freedom = async (path) => {
     console.log("FREEDOM! After escaping the", path, "you stumble out of the fire exit into the carpark. You can now run free. But will you go North, into the city? South into the desert? East, straight back to the pub? Or west, into the ocean?")
-    let direction = await finalChoice()
+
+    let direction = ""
+
+    let directionIsValid = false
+
+    while (!directionIsValid) {
+        direction = await finalChoice()
+        if (direction === 'invalid') {
+            console.log('choose N, E, S, W')
+        } else {
+            directionIsValid = true
+        }
+    }
+
     console.log("You have chosen to go to the", directions[direction]['where'], ".")
     console.log(directions[direction]['description'])
 }

@@ -19,7 +19,7 @@ const selectWeapons = async (weapons) => {
         type: 'list',
         name: 'weaponChoice',
         message: 'Choose your Weapon',
-        choices: weapons.map(weapon => weapon)
+        choices: weapons
     })
     return weaponChoice
 }
@@ -29,7 +29,7 @@ const digOrKeys = async (escapeCellMethods) => {
         type: 'list',
         name: 'escapeCellMethod',
         message: 'How will you escape the cell?',
-        choices: escapeCellMethods.map(method => method)
+        choices: escapeCellMethods
     })
     return escapeCellMethod
 }
@@ -39,7 +39,7 @@ const cellarChoice = async (cellarOptions) => {
         type: 'list',
         name: 'officeSewerYard',
         message: 'Which way do you want to go?',
-        choices: cellarOptions.map(direction => direction)
+        choices: cellarOptions
     })
     return officeSewerYard
 }
@@ -49,7 +49,7 @@ const combat = async (fightOptions) => {
         type: 'list',
         name: 'fightOrFlight',
         message: 'Will you fight or try to run past (like a coward)?',
-        choices: fightOptions.map(fight => fight)
+        choices: fightOptions
     })
     return fightOrFlight
 }
@@ -61,8 +61,7 @@ const finalChoice = async () => {
         message: 'Which way would you like to go? (N E S W)'
     })
     if (!NSEW.match(/N|S|E|W/i)){
-        console.log('choose N, E, S, W')
-        finalChoice()
+        return 'invalid'
     }
     else {
         return NSEW.toUpperCase()
