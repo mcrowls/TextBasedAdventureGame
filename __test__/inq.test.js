@@ -14,14 +14,14 @@ describe('name function test', () => {
         expect.assertions(1)
         inquirer.prompt = jest.fn().mockResolvedValue({ userInput: '123' })
 
-        await expect(name()).resolves.toEqual('use letters only')
+        await expect(name()).resolves.toEqual('invalid')
     })
 
     test('user input with symbols', async() => {
         expect.assertions(1)
         inquirer.prompt = jest.fn().mockResolvedValue({ userInput: '!bob%' })
 
-        await expect(name()).resolves.toEqual('use letters only')
+        await expect(name()).resolves.toEqual('invalid')
     })
 })
 

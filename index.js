@@ -1,16 +1,26 @@
-const {name, selectWeapons, digOrKeys, cellarChoice, combat, finalChoice} = require('./functions/inq');
-const { healthDecrease, guiltIncrease, checkStillAlive, interactionAfterCellar, checkTooGuilty} = require('./functions/functions');
+const {name, selectWeapons, digOrKeys, cellarChoice, combat, finalChoice,} = require('./functions/inq');
+const { healthDecrease, guiltIncrease, playerDead, interactionAfterCellar, playerTooGuilty} = require('./functions/functions');
 let {player, weapons, escapeCellMethods, weaponWithGuard, cellarOptions, fightOptions, combatLog, directions} = require('./stored/userItems');
 
 const start = async () => {
     console.log("You find yourself in a prison cell after a heavy night out. You are charged with drunk and disorderly and have been put away for life.")
     console.log("In your daze, you seem to have forgotten what your name is...")
-    player.name = await name()
+    
+    let nameIsValid = false
+
+    while (!nameIsValid) {
+        player.name = await name()
+        if (player.name === 'invalid') {
+            console.log("Please use letters only")
+        } else {
+            nameIsValid = true
+        }
+    }
+
     console.log("Hello", player.name, ", quite the situation you find yourself in!")
-    console.log("Your starting health is", player.health ,"and your starting guilt is", player.guilt ,"If your health gets to 0 or your guilt gets to 10, it will be game over man!")
+    console.log("Your starting health is", player.health ,"and your starting guilt is", player.guilt ,". If your health gets to 0 or your guilt gets to 10, it will be game over man!")
     userSelectWeapon()
 }
-
 
 const userSelectWeapon = async () => {
     console.log("You plan to escape. It is important to arm yourself before this. Which weapon would you like to choose?")
@@ -25,17 +35,22 @@ const escapeCell = async () => {
     let escapeCellMethod = await digOrKeys(escapeCellMethods)
     if (escapeCellMethod === "dig through wall"){
         console.log("you have chosen to dig through the wall")
-        healthDecrease(1)
-        console.log('you have torn your hands to shreds, your health is now', player.health)
+        healthDecrease(2)
+        console.log('you have torn your hands to shreds, you lose 2 health')
     }
     else {
-        console.log("Bold move! You have chosen to knock out the guard")
-        guiltIncrease(1)
+        console.log("Bold move! You have chosen to knock out the guard. He did nothing to deserve it though and you gain 3 guilt.")
+        guiltIncrease(2)
         healthDecrease(weaponWithGuard[player.weapon]) 
     }
-    checkStillAlive()
-    checkTooGuilty()
-    cellar()
+    console.log('Health:', player.health, 'Guilt:', player.guilt)
+    if (player.health < 1){
+        playerDead()
+    }else if (player.guilt >9){
+        playerTooGuilty()
+    }else {
+        cellar()
+    }
 }
 
 const cellar = async () => {
@@ -45,9 +60,16 @@ const cellar = async () => {
     console.log("You run through the", path, "and you come across a", combatLog[path]['enemy'])
     let fight = await combat(fightOptions)
     interactionAfterCellar(path, fight, combatLog)
-    checkStillAlive()
-    checkTooGuilty()
-    freedom(path)
+
+    console.log('Health:', player.health, 'Guilt:', player.guilt)
+
+    if (player.health < 1){
+        playerDead()
+    }else if (player.guilt >9){
+        playerTooGuilty()
+    }else {
+        freedom(path)
+    }
 }
 
 const freedom = async (path) => {
