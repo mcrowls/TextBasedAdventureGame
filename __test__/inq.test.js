@@ -1,6 +1,6 @@
 const inquirer = require('inquirer')
 jest.mock('inquirer')
-const {name, selectWeapons, digOrKeys, cellarChoice} = require('../functions/inq')
+const {name, selectWeapons, digOrKeys, cellarChoice, combat, finalChoice} = require('../functions/inq')
 
 describe('name function test', () => {
     test('user input with bob', async() => {
@@ -95,4 +95,78 @@ describe('cellar options tests', () => {
 
         await expect(cellarChoice(['run through the office', 'squeeze through the sewer', 'bust through the yard'])).resolves.toEqual('bust through the yard')
     })
+})
+
+describe('combat options test', () => {
+
+    test('user selects fight', async() => {
+        expect.assertions(1)
+        inquirer.prompt = jest.fn().mockResolvedValue({fightOrFlight: 'stand and fight'})
+
+        await expect(combat(['stand and fight', 'run away'])).resolves.toEqual('stand and fight')
+    })
+
+    test('user selects flight', async() => {
+        expect.assertions(1)
+        inquirer.prompt = jest.fn().mockResolvedValue({fightOrFlight: 'run away'})
+
+        await expect(combat(['stand and fight', 'run away'])).resolves.toEqual('run away')
+    })
+})
+
+
+describe('freedom choice test', () => {
+
+    test('user input h', async() => {
+        expect.assertions(1)
+        inquirer.prompt = jest.fn().mockResolvedValue({ NSEW: 'h' })
+
+        await expect(finalChoice()).resolves.toEqual('invalid')
+    })
+
+    test('user input 1', async() => {
+        expect.assertions(1)
+        inquirer.prompt = jest.fn().mockResolvedValue({ NSEW: '1' })
+
+        await expect(finalChoice()).resolves.toEqual('invalid')
+    })
+
+    test('user input %', async() => {
+        expect.assertions(1)
+        inquirer.prompt = jest.fn().mockResolvedValue({ NSEW: '%' })
+
+        await expect(finalChoice()).resolves.toEqual('invalid')
+    })
+
+    test('user input n', async() => {
+        expect.assertions(1)
+        inquirer.prompt = jest.fn().mockResolvedValue({ NSEW: 'n' })
+
+        await expect(finalChoice()).resolves.toEqual('N')
+    })
+
+    
+    test('user input E', async() => {
+        expect.assertions(1)
+        inquirer.prompt = jest.fn().mockResolvedValue({ NSEW: 'E' })
+
+        await expect(finalChoice()).resolves.toEqual('E')
+    })
+
+    
+    test('user input s', async() => {
+        expect.assertions(1)
+        inquirer.prompt = jest.fn().mockResolvedValue({ NSEW: 's' })
+
+        await expect(finalChoice()).resolves.toEqual('S')
+    })
+
+    
+    test('user input W', async() => {
+        expect.assertions(1)
+        inquirer.prompt = jest.fn().mockResolvedValue({ NSEW: 'W' })
+
+        await expect(finalChoice()).resolves.toEqual('W')
+    })
+
 })
