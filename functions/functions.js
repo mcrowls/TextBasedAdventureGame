@@ -37,10 +37,16 @@ const gameOver = () => {
     console.log("GAME OVER!")
 }
 
+const getPlayer = () => {
+    return player
+}
+
 module.exports = {
     healthDecrease,
     guiltIncrease,
     playerDead, 
     playerTooGuilty,
     interactionAfterCellar,
+    getPlayer,
+    gameOver
 }
